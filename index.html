@@ -280,20 +280,48 @@
       </div>
     </section>
 
-    <section id="gallery">
-      <div class="section-title">
-        <h2>Gallery</h2>
-        <p>Separate galleries will be created for each programme.</p>
-      </div>
-      <div class="gallery-grid">
-        <div class="gallery-item"><strong>ନୁଆଖାଇ ଭେଟ୍ ଘାଟ୍</strong><br>Gallery coming soon</div>
-        <div class="gallery-item"><strong>ଉତ୍କଳ ଦିବସ</strong><br>Gallery coming soon</div>
-        <div class="gallery-item"><strong>ଛାଡ଼ ଖାଇ</strong><br>Gallery coming soon</div>
-        <div class="gallery-item"><strong>କୃଷ୍ଣ ଜନ୍ମାଷ୍ଟମୀ</strong><br>Gallery coming soon</div>
-        <div class="gallery-item"><strong>ସରସ୍ବତୀ ପୂଜା</strong><br>Gallery coming soon</div>
-        <div class="gallery-item"><strong>ରକ୍ଷା ବନ୍ଧନ</strong><br>Gallery coming soon</div>
-      </div>
-    </section>
+<section id="gallery">
+  <div class="section-title">
+    <h2>Gallery</h2>
+    <p>Odisha Students Association, New Delhi — Event Galleries</p>
+  </div>
+
+  <div class="gallery-grid">
+
+    <div class="gallery-item">
+      <h3>ସରସ୍ବତୀ ପୂଜା</h3>
+      <button onclick="loadGallery('saraswati-puja')"></button>
+    </div>
+
+    <div class="gallery-item">
+      <h3>ରକ୍ଷା ବନ୍ଧନ</h3>
+      <button onclick="loadGallery('raksha-bandhan')">View Photos</button>
+    </div>
+
+    <div class="gallery-item">
+      <h3>କୃଷ୍ଣ ଜନ୍ମାଷ୍ଟମୀ</h3>
+      <button onclick="loadGallery('krishna-janmashtami')">View Photos</button>
+    </div>
+
+    <div class="gallery-item">
+      <h3>ଛାଡ଼ ଖାଇ</h3>
+      <button onclick="loadGallery('chhad-khai')">View Photos</button>
+    </div>
+
+    <div class="gallery-item">
+      <h3>ନୁଆଖାଇ ଭେଟ୍ ଘାଟ୍</h3>
+      <button onclick="loadGallery('nuakhai-bhet-ghat')">View Photos</button>
+    </div>
+
+    <div class="gallery-item">
+      <h3>ଉତ୍କଳ ଦିବସ</h3>
+      <button onclick="loadGallery('utkala-dibasa')">View Photos</button>
+    </div>
+
+  </div>
+
+  <div id="event-photos" class="gallery-grid"></div>
+</section>
 
     <section id="team">
       <div class="section-title">
@@ -332,5 +360,40 @@
     <p>Vande Utkal Janani · Jai Maa Samlei</p>
     <p>© 2024–2026 Odisha Student Association. All rights reserved.</p>
   </footer>
+  <script>
+async function loadGallery(folder) {
+  const gallery = document.getElementById("event-photos");
+  gallery.innerHTML = "<p>ଫଟୋ ଲୋଡ୍ ହେଉଛି...</p>";
+
+  const repo = "NewdelhiStudentodishaassociation2024/students-Association-";
+  const api = `https://api.github.com/repos/${repo}/contents/gallery/${folder}`;
+
+  try {
+    const response = await fetch(api);
+    const files = await response.json();
+
+    gallery.innerHTML = "";
+
+    files
+      .filter(file => /\.(jpg|jpeg|png|webp)$/i.test(file.name))
+      .forEach(file => {
+        const img = document.createElement("img");
+        img.src = file.download_url;
+        img.alt = file.name;
+        img.style.width = "100%";
+        img.style.borderRadius = "12px";
+        img.style.marginBottom = "12px";
+        gallery.appendChild(img);
+      });
+
+    if (gallery.innerHTML === "") {
+      gallery.innerHTML = "<p>ଏହି କାର୍ଯ୍ୟକ୍ରମର ଫଟୋ ବର୍ତ୍ତମାନ ଉପଲବ୍ଧ ନାହିଁ।</p>";
+    }
+
+  } catch (error) {
+    gallery.innerHTML = "<p>ଫଟୋ ଲୋଡ୍ ହୋଇପାରିଲା ନାହିଁ।</p>";
+  }
+}
+  </script>
 </body>
 </html>
