@@ -50,21 +50,25 @@
       align-items: center;
       gap: 14px;
     }
-    .logo-placeholder {
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      border: 2px solid var(--secondary);
-      display: grid;
-      place-items: center;
-      font-size: 11px;
-      text-align: center;
-      color: var(--primary);
-      background: #fff;
-      overflow: hidden;
-    }
-    .brand h1 { font-size: 20px; color: var(--primary); }
-    .brand p { font-size: 12px; color: var(--muted); }
+.topbar img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.brand h1 {
+  font-size: 20px;
+  color: var(--primary);
+  margin: 0;
+}
+
+.brand p {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 2px 0 0;
+}
+    
     nav {
       max-width: 1200px;
       margin: auto;
